@@ -1,0 +1,36 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (12,11,5,4,3,2);
+int i;
+int tam_txt;
+String input;
+void setup() {
+  // put your setup code here, to run once:
+lcd.begin(16,2);
+lcd.clear();
+Serial.begin(9600);
+Serial.println("Ingrese texto a mostrar");
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (Serial.available()>0)  {
+       input = Serial.readString();
+       tam_txt = input.length();
+
+       for(i=0; i<=tam_txt; i++){
+        lcd.setCursor(0,0);
+        lcd.print(input.substring(i-1));
+        delay(200);
+        lcd.clear();
+     
+      }
+        
+       for(i=16 ;i>=1; i--){
+        lcd.clear();
+        lcd.setCursor(i, 0);
+        lcd.print(input);
+        delay(200);
+      }
+   }
+   
+}
